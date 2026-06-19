@@ -1,0 +1,69 @@
+[
+    {
+        "id": 1,
+        "nome": "Luna",
+        "raca": "Husky",
+        "idade": "2 anos",
+        "porte": "Grande",
+        "saude": "Saudável",
+        "descricao": "Inteligente e leal, perfeita para famílias com crianças.",
+        "foto": "assets/img/Husky.jpeg",
+        "disponivel": false,
+        "adotado_por": "bela@gmail.com"
+    },
+    {
+        "id": 2,
+        "nome": "Charlie",
+        "raca": "Labrador",
+        "idade": "4 anos",
+        "porte": "Grande",
+        "saude": "Saudável",
+        "descricao": "Dócil e carinhoso, excelente com crianças e outros pets.",
+        "foto": "assets/img/Labrador.jpeg",
+        "disponivel": true
+    },
+    {
+        "id": 3,
+        "nome": "Bella",
+        "raca": "Poodle",
+        "idade": "1 ano",
+        "porte": "Pequeno",
+        "saude": "Alergia alimentar",
+        "descricao": "Pequena, alegre e muito carinhosa. Precisa de ração especial.",
+        "foto": "assets/img/Poodle.jpeg",
+        "disponivel": true
+    },
+    {
+        "id": 4,
+        "nome": "Rex",
+        "raca": "Vira-lata",
+        "idade": "3 anos",
+        "porte": "Médio",
+        "saude": "Saudável",
+        "descricao": "Animado e brincalhão, adora atenção e longos passeios.",
+        "foto": "assets/img/SRD.jpeg",
+        "disponivel": true
+    },
+    {
+        "id": 5,
+        "nome": "Mel",
+        "raca": "Beagle",
+        "idade": "5 anos",
+        "porte": "Médio",
+        "saude": "Hipotireoidismo",
+        "descricao": "Calma e afetuosa, toma medicação diária e adora colo.",
+        "foto": "assets/img/Beagle.jpeg",
+        "disponivel": true
+    },
+    {
+        "id": 6,
+        "nome": "Thor",
+        "raca": "Golden Retriever",
+        "idade": "2 anos",
+        "porte": "Grande",
+        "saude": "Saudável",
+        "descricao": "Companheiro fiel, ótimo para famílias ativas e espaços amplos.",
+        "foto": "assets/img/Golden.jpeg",
+        "disponivel": true
+    }
+]
