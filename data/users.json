@@ -1,0 +1,46 @@
+[
+    {
+        "nome": "Bella chaves",
+        "email": "isabelasilveira1000@gmail.com",
+        "cpf": "673.848.625-15",
+        "telefone": "(77) 9 9958-538",
+        "endereco": "Rua Domingos Antônio Teixeira",
+        "senha": "$2y$10$bsPJsiAi2a1qZfJR.z1hsexZnEXm3jtO11539o7gnizMAUV7WM262"
+    },
+    {
+        "nome": "",
+        "email": "",
+        "cpf": "",
+        "telefone": "",
+        "endereco": "",
+        "senha": "$2y$10$QEvZ12qX.hOVz2hrVF\/XTO4vdPuLZehrN3J5XT6i.O1d48q8jmx1W"
+    },
+    {
+        "nome": "ANDREA CHAVES SILVA MENDES",
+        "email": "bela@gmail.com",
+        "cpf": "673.848.625-15",
+        "telefone": "(77) 9 9958-538",
+        "endereco": "Rua Domingos Antônio Teixeira",
+        "senha": "$2y$10$EHISHCuRelOnCORyexhvreISjw7f5j7rvTsEQGm5VqXWOumnIKuSG",
+        "adocoes": [
+            {
+                "id_cao": 1,
+                "motivo": "gggg",
+                "pessoas": "1",
+                "animais": "Sim, cachorros",
+                "quintal": "Não",
+                "experiencia": "Não",
+                "data": "13\/06\/2026"
+            }
+        ]
+    },
+    {
+        "nome": "emilly lais nunes de freitas",
+        "email": "nunesdefreitasemillylais0@gmail.com",
+        "cpf": "082827373838",
+        "telefone": "",
+        "endereco": "",
+        "senha": "$2y$10$zQ52IvKZ6je7GwDSBO6e9.QAjo\/g9vkFuD6kLL5mbq7kvaUNjC6wO",
+        "curtidos": []
+    }
+]
