@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="assets/css/footer.css">
 
     <div class="footer-box footer-brand">
-      <img src="img/coracao-verde.png" alt="Logo AUmas Gêmeas">
+      <img src="assets/img/Logo.jpeg" alt="Logo AUmas Gêmeas">
       <div>
         <h3>AUmas Gêmeas</h3>
         <p>Conectando corações e patinhas desde 2020.</p>
