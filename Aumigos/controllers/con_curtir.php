@@ -16,11 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['id'])) {
 $id       = (int) $_POST['id'];
 $redirect = isset($_POST['redirect']) ? '../' . $_POST['redirect'] : '../catalogo.php';
 
-// -------------------------------------------------------
-// FUNÇÃO: Alterna o favorito de um cão para o usuário
-// Se já curtido, remove. Se não curtido, adiciona.
-// Retorna o array de curtidos atualizado.
-// -------------------------------------------------------
 function alternarFavorito(array $curtidos, int $id): array {
     if (in_array($id, $curtidos)) {
         return array_values(array_filter($curtidos, fn($c) => $c !== $id));
@@ -29,11 +24,6 @@ function alternarFavorito(array $curtidos, int $id): array {
         return $curtidos;
     }
 }
-
-// -------------------------------------------------------
-// FUNÇÃO: Atualiza os curtidos do usuário no array geral
-// Retorna o array de usuários atualizado
-// -------------------------------------------------------
 function atualizarCurtidosDoUsuario(array $users, string $email, int $id): array {
     foreach ($users as &$u) {
         if ($u['email'] === $email) {
@@ -45,7 +35,6 @@ function atualizarCurtidosDoUsuario(array $users, string $email, int $id): array
     return $users;
 }
 
-// Carrega usuários e atualiza favoritos
 $arq_users = __DIR__ . '/../data/users.json';
 $users     = json_decode(file_get_contents($arq_users), true);
 
