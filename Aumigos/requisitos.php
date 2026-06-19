@@ -7,7 +7,7 @@ if (!isset($_SESSION['logado'])) {
     exit();
 }
 
-// Recebe os dados do formulário anterior
+
 $id          = intval($_POST['id'] ?? 0);
 $motivo      = $_POST['motivo'] ?? '';
 $pessoas     = $_POST['pessoas'] ?? '';
@@ -51,7 +51,7 @@ if (!$cao || !$cao['disponivel']) {
 
   <form action="controllers/con_adotar.php" method="POST" enctype="multipart/form-data">
 
-    <!-- Passa dados do formulário anterior -->
+
     <input type="hidden" name="id"             value="<?php echo $id; ?>">
     <input type="hidden" name="motivo"         value="<?php echo htmlspecialchars($motivo); ?>">
     <input type="hidden" name="pessoas"        value="<?php echo htmlspecialchars($pessoas); ?>">
@@ -59,7 +59,7 @@ if (!$cao || !$cao['disponivel']) {
     <input type="hidden" name="quintal"        value="<?php echo htmlspecialchars($quintal); ?>">
     <input type="hidden" name="experiencia"    value="<?php echo htmlspecialchars($experiencia); ?>">
 
-    <!-- Bloco 1: Documentação -->
+   
     <div class="req-bloco">
       <div class="req-bloco-titulo">
         <span class="req-num">1</span>
@@ -83,7 +83,7 @@ if (!$cao || !$cao['disponivel']) {
       </div>
     </div>
 
-    <!-- Bloco 2: Concordância familiar -->
+    
     <div class="req-bloco">
       <div class="req-bloco-titulo">
         <span class="req-num">2</span>
@@ -97,7 +97,7 @@ if (!$cao || !$cao['disponivel']) {
       </label>
     </div>
 
-    <!-- Bloco 3: Condições financeiras -->
+
     <div class="req-bloco">
       <div class="req-bloco-titulo">
         <span class="req-num">3</span>
@@ -111,7 +111,7 @@ if (!$cao || !$cao['disponivel']) {
       </label>
     </div>
 
-    <!-- Bloco 4: Taxa de adoção -->
+ 
     <div class="req-bloco">
       <div class="req-bloco-titulo">
         <span class="req-num">4</span>
@@ -130,7 +130,7 @@ if (!$cao || !$cao['disponivel']) {
       </label>
     </div>
 
-    <!-- Bloco 5: Termo de responsabilidade -->
+ 
     <div class="req-bloco">
       <div class="req-bloco-titulo">
         <span class="req-num">5</span>
