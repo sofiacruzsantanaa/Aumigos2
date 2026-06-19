@@ -4,7 +4,7 @@
         "email": "isabelasilveira1000@gmail.com",
         "cpf": "673.848.625-15",
         "telefone": "(77) 9 9958-538",
-        "endereco": "Rua Domingos Antônio Teixeira",
+        "endereco": "Rua Domingos Ant\u00f4nio Teixeira",
         "senha": "$2y$10$bsPJsiAi2a1qZfJR.z1hsexZnEXm3jtO11539o7gnizMAUV7WM262"
     },
     {
@@ -20,7 +20,7 @@
         "email": "bela@gmail.com",
         "cpf": "673.848.625-15",
         "telefone": "(77) 9 9958-538",
-        "endereco": "Rua Domingos Antônio Teixeira",
+        "endereco": "Rua Domingos Ant\u00f4nio Teixeira",
         "senha": "$2y$10$EHISHCuRelOnCORyexhvreISjw7f5j7rvTsEQGm5VqXWOumnIKuSG",
         "adocoes": [
             {
@@ -28,8 +28,8 @@
                 "motivo": "gggg",
                 "pessoas": "1",
                 "animais": "Sim, cachorros",
-                "quintal": "Não",
-                "experiencia": "Não",
+                "quintal": "N\u00e3o",
+                "experiencia": "N\u00e3o",
                 "data": "13\/06\/2026"
             }
         ]
@@ -42,5 +42,13 @@
         "endereco": "",
         "senha": "$2y$10$zQ52IvKZ6je7GwDSBO6e9.QAjo\/g9vkFuD6kLL5mbq7kvaUNjC6wO",
         "curtidos": []
+    },
+    {
+        "nome": "",
+        "email": "teste@gmail.com",
+        "cpf": "",
+        "telefone": "",
+        "endereco": "",
+        "senha": "$2y$10$pBqNi.oVfYhxWrW\/Drpo0.ZXtaSmeO\/tVI8td7Ps5knVnC273G2xW"
     }
 ]
