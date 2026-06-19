@@ -1,33 +1,34 @@
-<?php include_once 'includes/header.php'; ?>
-<link rel="stylesheet" href="assets/css/adotar.css">
-
-<main>
 <?php
-if (!isset($_SESSION['logado'])) {
-    header("Location: login.php");
-    exit();
-}
+  $paginaCSS = 'assets/css/adotar.css';
 
-$id   = intval($_GET['id'] ?? 0);
-$caes = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
+  if (!isset($_SESSION['logado'])) {
+      header("Location: login.php");
+      exit();
+  }
 
-$cao = null;
-foreach ($caes as $c) {
-    if ($c['id'] === $id) { $cao = $c; break; }
-}
+  $id   = intval($_GET['id'] ?? 0);
+  $caes = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
 
-if (!$cao || !$cao['disponivel']) {
-    echo '<div class="adotar-vazio"><p>Cão não encontrado ou já adotado. <a href="catalogo.php">Voltar ao catálogo</a></p></div>';
-    include_once 'includes/footer.php';
-    exit();
-}
+  $cao = null;
+  foreach ($caes as $c) {
+      if ($c['id'] === $id) { $cao = $c; break; }
+  }
 
+  $erro = $_GET['erro'] ?? '';
 
-$erro = $_GET['erro'] ?? '';
+  include_once 'includes/header.php';
 ?>
 
-<div class="adotar-box">
+<main>
 
+<?php if (!$cao || !$cao['disponivel']): ?>
+  <div class="adotar-vazio">
+    <p>Cão não encontrado ou já adotado. <a href="catalogo.php">Voltar ao catálogo</a></p>
+  </div>
+
+<?php else: ?>
+
+<div class="adotar-box">
 
   <div class="adotar-cao">
     <img src="<?php echo htmlspecialchars($cao['foto']); ?>" alt="<?php echo htmlspecialchars($cao['nome']); ?>">
@@ -54,7 +55,6 @@ $erro = $_GET['erro'] ?? '';
     </div>
   </div>
 
-  <!-- Coluna direita: formulário -->
   <div class="adotar-form">
     <h1>Formulário de adoção</h1>
     <p class="form-subtitulo">Conte um pouco sobre você para adotar <strong><?php echo htmlspecialchars($cao['nome']); ?></strong></p>
@@ -63,7 +63,7 @@ $erro = $_GET['erro'] ?? '';
       <div class="form-erro">Preencha todos os campos antes de continuar.</div>
     <?php endif; ?>
 
-   <form action="requisitos.php" method="POST">>
+    <form action="requisitos.php" method="POST">
       <input type="hidden" name="id" value="<?php echo $cao['id']; ?>">
 
       <div class="campo">
@@ -119,6 +119,9 @@ $erro = $_GET['erro'] ?? '';
   </div>
 
 </div>
+
+<?php endif; ?>
+
 </main>
 
 <?php include_once 'includes/footer.php'; ?>
