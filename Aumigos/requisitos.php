@@ -1,10 +1,12 @@
 <?php
-$paginaCSS = 'assets/css/requisitos.css';
+session_start();
 
 if (!isset($_SESSION['logado'])) {
-    header("Location: login.php");
+    header("Location: /CODIGOSWELISON/Aumigos/login.php");
     exit();
 }
+
+$paginaCSS = 'assets/css/requisitos.css';
 
 $id          = intval($_POST['id'] ?? 0);
 $motivo      = $_POST['motivo'] ?? '';
@@ -14,7 +16,7 @@ $quintal     = $_POST['quintal'] ?? '';
 $experiencia = $_POST['experiencia'] ?? '';
 
 if (!$id || !$motivo || !$pessoas || !$animais || !$quintal || !$experiencia) {
-    header("Location: catalogo.php");
+    header("Location: /CODIGOSWELISON/Aumigos/catalogo.php");
     exit();
 }
 
@@ -25,7 +27,7 @@ foreach ($caes as $c) {
 }
 
 if (!$cao || !$cao['disponivel']) {
-    header("Location: catalogo.php?erro=indisponivel");
+    header("Location: /CODIGOSWELISON/Aumigos/catalogo.php?erro=indisponivel");
     exit();
 }
 
@@ -34,7 +36,6 @@ include_once 'includes/header.php';
 
 <main>
 <div class="req-wrap">
-
   <div class="req-header">
     <div class="req-step concluido">1 Perfil</div>
     <div class="req-linha concluido"></div>
