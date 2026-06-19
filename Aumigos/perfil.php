@@ -38,7 +38,7 @@ include_once 'includes/header.php';
 
     <div class="dados">
       <?php if (!empty($usuarioLogado['foto'])): ?>
-        <img src="<?php echo htmlspecialchars($usuarioLogado['foto']); ?>" class="foto" alt="Foto de perfil">
+        <img src="<?php echo htmlspecialchars(resolve_asset_path($usuarioLogado['foto'])); ?>" class="foto" alt="Foto de perfil">
       <?php else: ?>
         <div class="foto" style="display:flex; align-items:center; justify-content:center; font-size:56px; background:#d6f0dc;">🐾</div>
       <?php endif; ?>

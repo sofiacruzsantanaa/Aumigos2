@@ -60,7 +60,7 @@ if (isset($_SESSION['usuario'])) {
 
     <div class="card-cachorro <?php echo !$disponivel ? 'indisponivel' : ''; ?>">
       <div class="card-img">
-        <img src="<?php echo htmlspecialchars($cao['foto'] ?? ''); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
+  <img src="<?php echo htmlspecialchars(resolve_asset_path($cao['foto'] ?? '')); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
 
         <?php if (!$disponivel): ?>
           <div class="badge-indisponivel">Adotado 🐾</div>

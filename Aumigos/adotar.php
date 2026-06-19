@@ -45,7 +45,7 @@ include_once 'includes/header.php';
 
 <div class="adotar-box">
   <div class="adotar-cao">
-    <img src="<?php echo htmlspecialchars($cao['foto'] ?? ''); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
+  <img src="<?php echo htmlspecialchars(resolve_asset_path($cao['foto'] ?? '')); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
 
     <div class="adotar-cao-info">
       <h2><?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?></h2>

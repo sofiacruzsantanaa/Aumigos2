@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 if (!isset($_SESSION['logado'])) {
@@ -7,6 +8,12 @@ if (!isset($_SESSION['logado'])) {
 }
 
 $paginaCSS = 'assets/css/favoritos.css';
+
+// Fallback: if the CSS file exists, we can optionally inline it into the head
+$cssPath = __DIR__ . '/assets/css/favoritos.css';
+if (file_exists($cssPath)) {
+  $paginaCSS_INLINE = file_get_contents($cssPath);
+}
 
 $arqUsers = __DIR__ . '/data/users.json';
 $arqCaes = __DIR__ . '/data/caes.json';
@@ -41,6 +48,7 @@ $caesCurtidos = array_filter($caes, function ($c) use ($curtidos) {
 });
 
 include_once 'includes/header.php';
+
 ?>
 
 <main>
@@ -69,7 +77,7 @@ include_once 'includes/header.php';
 
     <div class="card-cachorro">
       <div class="card-img">
-        <img src="<?php echo htmlspecialchars($cao['foto'] ?? ''); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
+  <img src="<?php echo htmlspecialchars(resolve_asset_path($cao['foto'] ?? '')); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
 
         <form method="POST" action="controllers/con_curtir.php">
           <input type="hidden" name="id" value="<?php echo $id; ?>">
