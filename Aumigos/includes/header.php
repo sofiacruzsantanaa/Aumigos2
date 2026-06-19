@@ -63,21 +63,21 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <header>
     <div class="nav-links">
-        <a href="inicio.php">Início</a>
-        <a href="catalogo.php">AUmigos</a>
+        <a href="<?php echo htmlspecialchars(asset_href('inicio.php')); ?>">Início</a>
+        <a href="<?php echo htmlspecialchars(asset_href('catalogo.php')); ?>">AUmigos</a>
 
         <?php if (isset($_SESSION['logado'])): ?>
-            <a href="favoritos.php">Favoritos</a>
+            <a href="<?php echo htmlspecialchars(asset_href('favoritos.php')); ?>">Favoritos</a>
         <?php endif; ?>
     </div>
 
     <div class="nav-right">
         <?php if (isset($_SESSION['logado'])): ?>
-            <a href="perfil.php" class="btn-castrar">Perfil</a>
-            <a href="sair.php" class="btn-entrar">Sair</a>
+            <a href="<?php echo htmlspecialchars(asset_href('perfil.php')); ?>" class="btn-castrar">Perfil</a>
+            <a href="<?php echo htmlspecialchars(asset_href('sair.php')); ?>" class="btn-entrar">Sair</a>
         <?php else: ?>
-            <a href="cadastro.php" class="btn-castrar">Cadastrar</a>
-            <a href="login.php" class="btn-entrar">Entrar</a>
+            <a href="<?php echo htmlspecialchars(asset_href('cadastro.php')); ?>" class="btn-castrar">Cadastrar</a>
+            <a href="<?php echo htmlspecialchars(asset_href('login.php')); ?>" class="btn-entrar">Entrar</a>
         <?php endif; ?>
     </div>
 </header>

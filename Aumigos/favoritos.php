@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['logado'])) {
@@ -7,33 +6,21 @@ if (!isset($_SESSION['logado'])) {
     exit();
 }
 
-$paginaCSS = 'assets/css/favoritos.css';
-
-// Fallback: if the CSS file exists, we can optionally inline it into the head
-$cssPath = __DIR__ . '/assets/css/favoritos.css';
-if (file_exists($cssPath)) {
-  $paginaCSS_INLINE = file_get_contents($cssPath);
-}
-
 $arqUsers = __DIR__ . '/data/users.json';
-$arqCaes = __DIR__ . '/data/caes.json';
+$arqCaes  = __DIR__ . '/data/caes.json';
 
-$users = [];
-$caes = [];
+$users    = [];
+$caes     = [];
 $curtidos = [];
 
 if (file_exists($arqUsers)) {
     $dadosUsers = json_decode(file_get_contents($arqUsers), true);
-    if (is_array($dadosUsers)) {
-        $users = $dadosUsers;
-    }
+    if (is_array($dadosUsers)) $users = $dadosUsers;
 }
 
 if (file_exists($arqCaes)) {
     $dadosCaes = json_decode(file_get_contents($arqCaes), true);
-    if (is_array($dadosCaes)) {
-        $caes = $dadosCaes;
-    }
+    if (is_array($dadosCaes)) $caes = $dadosCaes;
 }
 
 foreach ($users as $u) {
@@ -44,15 +31,13 @@ foreach ($users as $u) {
 }
 
 $caesCurtidos = array_filter($caes, function ($c) use ($curtidos) {
-    return in_array((int) ($c['id'] ?? 0), $curtidos);
+    return in_array((int)($c['id'] ?? 0), $curtidos);
 });
 
 include_once 'includes/header.php';
-
-// Force-load favoritos stylesheet (absolute path for MAMP)
-echo '<link rel="stylesheet" href="/CODIGOSWELISON/Aumigos/assets/css/favoritos.css">';
-
 ?>
+<link rel="stylesheet" href="assets/css/catalogo.css">
+<link rel="stylesheet" href="assets/css/favoritos.css">
 
 <main>
 
@@ -73,20 +58,16 @@ echo '<link rel="stylesheet" href="/CODIGOSWELISON/Aumigos/assets/css/favoritos.
 <?php else: ?>
 
   <section class="catalogo">
-    <?php foreach ($caesCurtidos as $cao): 
-      $id = (int) ($cao['id'] ?? 0);
+    <?php foreach ($caesCurtidos as $cao):
+      $id       = (int)($cao['id'] ?? 0);
       $saudavel = ($cao['saude'] ?? '') === 'Saudável';
     ?>
 
     <div class="card-cachorro">
       <div class="card-img">
-  <img src="<?php echo htmlspecialchars(resolve_asset_path($cao['foto'] ?? '')); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
+        <img src="<?php echo htmlspecialchars($cao['foto'] ?? ''); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
 
-        <form method="POST" action="controllers/con_curtir.php">
-          <input type="hidden" name="id" value="<?php echo $id; ?>">
-          <input type="hidden" name="redirect" value="../favoritos.php">
-          <button type="submit" class="btn-favorito favoritado" title="Remover dos favoritos">♥</button>
-        </form>
+        <button class="btn-favorito favoritado" data-id="<?php echo $id; ?>" title="Remover dos favoritos">♥️</button>
       </div>
 
       <div class="card-body">
@@ -119,5 +100,28 @@ echo '<link rel="stylesheet" href="/CODIGOSWELISON/Aumigos/assets/css/favoritos.
 <?php endif; ?>
 
 </main>
+
+<script>
+document.querySelectorAll('.btn-favorito').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const id  = this.dataset.id;
+    const card = this.closest('.card-cachorro');
+
+    fetch('controllers/con_curtir.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'id=' + id
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (!data.curtido) {
+        card.style.opacity = '0';
+        card.style.transition = 'opacity 0.3s';
+        setTimeout(() => card.remove(), 300);
+      }
+    });
+  });
+});
+</script>
 
 <?php include_once 'includes/footer.php'; ?>
