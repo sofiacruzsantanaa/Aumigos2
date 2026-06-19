@@ -15,7 +15,7 @@ function carregarUsuarios(string $arquivo): ?array {
 
 function autenticarUsuario(array $usuarios, string $email, string $senha): ?array {
     foreach ($usuarios as $u) {
-        if ($u['email'] === $email && password_verify($senha, $u['senha'])) {
+        if (!empty($u['email']) && $u['email'] === $email && password_verify($senha, $u['senha'])) {
             return $u;
         }
     }
@@ -34,7 +34,7 @@ function redirecionar(string $destino): void {
 
 function processarLogin(): void {
     $dados    = obterDadosLogin();
-    $usuarios = carregarUsuarios('../data/users.json');
+    $usuarios = carregarUsuarios(__DIR__ . '/../data/users.json');
 
     if ($usuarios === null) {
         redirecionar('/CODIGOSWELISON/Aumigos/login.php?erro=1');

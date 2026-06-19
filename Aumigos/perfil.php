@@ -1,13 +1,14 @@
 <?php
-$paginaCSS = 'assets/css/perfil.css';
-include_once 'includes/header.php';
+session_start();
 
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
 
-$arquivo = 'data/users.json';
+$paginaCSS = 'assets/css/perfil.css';
+
+$arquivo = __DIR__ . '/data/users.json';
 $usuarioLogado = null;
 if (file_exists($arquivo)) {
     $usuarios = json_decode(file_get_contents($arquivo), true);
@@ -18,6 +19,8 @@ if (file_exists($arquivo)) {
         }
     }
 }
+
+include_once 'includes/header.php';
 ?>
 
 <main>

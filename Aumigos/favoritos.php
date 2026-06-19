@@ -1,13 +1,12 @@
 <?php
-$paginaCSS = 'assets/css/favoritos.css';
-include_once 'includes/header.php';
-?>
-<main>
-<?php
+session_start();
+
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
+
+$paginaCSS = 'assets/css/favoritos.css';
 
 $arq_users = __DIR__ . '/data/users.json';
 $arq_caes  = __DIR__ . '/data/caes.json';
@@ -25,7 +24,7 @@ foreach ($users as $u) {
 
 // Desfavoritar via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-    $id = $_POST['id'];
+    $id = (int) $_POST['id'];
     foreach ($users as &$u) {
         if ($u['email'] === $_SESSION['usuario']) {
             $u['curtidos'] = array_values(array_filter($u['curtidos'] ?? [], fn($c) => $c !== $id));
@@ -34,13 +33,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         }
     }
     file_put_contents($arq_users, json_encode($users, JSON_PRETTY_PRINT));
-    header("Location: favoritos.php");
+    header("Location: /CODIGOSWELISON/Aumigos/favoritos.php");
     exit();
 }
 
-// Filtra só os cães curtidos
 $caesCurtidos = array_filter($caes, fn($c) => in_array($c['id'], $curtidos));
+
+include_once 'includes/header.php';
 ?>
+
+<main>
 
 <section class="catalogo-hero">
   <h1>Meus favoritos</h1>
