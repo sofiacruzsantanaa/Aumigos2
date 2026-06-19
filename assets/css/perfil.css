@@ -1,9 +1,13 @@
+/* RESET */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap');
+
 :root {
   --font-heading: 'Fredoka', Arial, sans-serif;
-  --font-body: 'Fredoka', Arial, sans-serif;
+  --font-body: 'DM Sans', Arial, sans-serif;
 
   --bg-main: #fffaf3;
   --bg-card: #ffffff;
+  --bg-soft: #faf6f1;
 
   --green-primary: #afe69d;
   --green-light: #d7f7cb;
@@ -12,278 +16,436 @@
 
   --brown-dark: #8f604f;
   --brown-mid: #a87561;
+  --brown-light: #9f8174;
   --brown-soft: #c9aa9b;
 
-  --pink-soft: #ffe5e9;
-  --pink-heart: #e88b9a;
-
+  --border-color: #efe3dc;
   --shadow-soft: rgba(95, 70, 58, 0.10);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   position: relative;
-  min-height: 100vh;
-  margin: 0;
-  overflow-x: hidden;
-
-  background:
-    radial-gradient(circle at 8% 18%, rgba(175, 230, 157, 0.18), transparent 26%),
-    radial-gradient(circle at 92% 30%, rgba(168, 117, 97, 0.10), transparent 24%),
-    radial-gradient(circle at 50% 100%, rgba(255, 229, 233, 0.34), transparent 34%),
-    radial-gradient(circle at 18% 82%, rgba(175, 230, 157, 0.13), transparent 26%),
-    var(--bg-main);
-
   font-family: var(--font-body);
+  background:
+    radial-gradient(circle at 8% 16%, rgba(175, 230, 157, 0.16), transparent 28%),
+    radial-gradient(circle at 92% 28%, rgba(168, 117, 97, 0.08), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(175, 230, 157, 0.12), transparent 34%),
+    var(--bg-main);
   color: var(--brown-mid);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Detalhes fofos no fundo */
 body::before {
-  content: "♡ AU! ♥ ♡ AU! ♡ ♥";
+  content: "♡";
   position: fixed;
-  top: 28px;
-  left: 50%;
-  z-index: 0;
-
-  width: 100%;
-  transform: translateX(-50%);
-
-  text-align: center;
-  font-family: var(--font-heading);
-  font-size: 17px;
-  font-weight: 800;
-  letter-spacing: 17px;
-
-  color: rgba(168, 117, 97, 0.18);
+  left: 6%;
+  top: 22%;
+  font-size: 58px;
+  color: var(--green-primary);
+  opacity: 0.24;
+  transform: rotate(-14deg);
   pointer-events: none;
 }
 
 body::after {
-  content: "♡";
+  content: "♥";
   position: fixed;
+  right: 7%;
+  bottom: 14%;
+  font-size: 44px;
+  color: var(--brown-soft);
+  opacity: 0.22;
+  transform: rotate(16deg);
+  pointer-events: none;
+}
+
+
+/* CONTAINER */
+
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 54px auto 72px;
+}
+
+
+/* PERFIL */
+
+.perfil {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(168, 117, 97, 0.10);
+  box-shadow: 0 16px 42px rgba(95, 70, 58, 0.12);
+}
+
+.perfil::before {
+  content: "AU!";
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  z-index: 5;
+
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 800;
+
+  color: var(--brown-dark);
+  background: rgba(255, 255, 255, 0.82);
+
+  padding: 9px 15px;
+  border-radius: 999px 999px 999px 8px;
+  border: 1px solid rgba(168, 117, 97, 0.12);
+  box-shadow: 0 8px 20px rgba(95, 70, 58, 0.10);
+
+  transform: rotate(-8deg);
+}
+
+.perfil::after {
+  content: "♡";
+  position: absolute;
+  top: 28px;
   right: 34px;
-  bottom: 34px;
-  z-index: 0;
+  z-index: 5;
 
-  width: 72px;
-  height: 72px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--green-primary);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: 42px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--green-text);
+  font-size: 30px;
 
-  box-shadow: 0 12px 28px rgba(95, 70, 58, 0.08);
   border: 1px solid rgba(168, 117, 97, 0.10);
+  box-shadow: 0 8px 20px rgba(95, 70, 58, 0.08);
 
   transform: rotate(12deg);
-  pointer-events: none;
 }
 
-h2 {
+
+/* BANNER */
+
+.banner {
   position: relative;
-  z-index: 1;
-
-  text-align: center;
-  color: var(--brown-dark);
-
-  margin-top: 62px;
-  margin-bottom: -48px;
-
-  font-family: var(--font-heading);
-  font-size: clamp(32px, 4vw, 44px);
-  line-height: 1.08;
-  font-weight: 800;
-
-  letter-spacing: -0.6px;
-}
-
-h2::before {
-  content: "♡ AU! ♡";
-  display: block;
-
-  width: fit-content;
-  margin: 0 auto 12px;
-
-  color: var(--green-text);
-  background: rgba(255, 255, 255, 0.75);
-
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-
-  padding: 9px 16px;
-  border-radius: 999px 999px 999px 8px;
-
-  border: 1px solid rgba(168, 117, 97, 0.12);
-  box-shadow: 0 8px 18px rgba(95, 70, 58, 0.08);
-
-  transform: rotate(-4deg);
-}
-
-h2::after {
-  content: "";
-  display: block;
-
-  width: 92px;
-  height: 7px;
-
-  margin: 16px auto 0;
-
+  height: 205px;
   background:
-    linear-gradient(135deg, var(--green-primary), var(--green-light));
-
-  border-radius: 999px;
-  opacity: 0.85;
-
-  box-shadow: 0 7px 16px rgba(175, 230, 157, 0.36);
-}
-
-form {
-  position: relative;
-  z-index: 1;
-
-  width: 350px;
-  max-width: calc(100% - 42px);
-
-  margin: 82px auto;
-  padding: 38px 30px 34px;
-
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 250, 243, 0.95));
-
-  border-radius: 30px;
-  border: 1px solid rgba(168, 117, 97, 0.14);
-
-  box-shadow:
-    0 16px 38px rgba(95, 70, 58, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.65);
-
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  box-sizing: border-box;
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.42), transparent 20%),
+    radial-gradient(circle at 78% 22%, rgba(255, 255, 255, 0.30), transparent 18%),
+    linear-gradient(135deg, var(--green-light), var(--green-primary), #dff8d5);
   overflow: hidden;
 }
 
-/* Balão AU */
-form::before {
-  content: "AU! AU!";
+.banner::before {
+  content: "";
   position: absolute;
-  top: 15px;
-  right: 18px;
-  z-index: 2;
+  left: 50%;
+  bottom: 32px;
 
-  background: #ffffff;
-  color: var(--brown-dark);
+  width: 78px;
+  height: 28px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.40);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  transform: translateX(-50%) rotate(-8deg);
+}
+
+.banner::after {
+  content: "♡   ♥   ♡";
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+
+  color: rgba(143, 96, 79, 0.34);
+  font-size: 24px;
+  letter-spacing: 14px;
+}
+
+
+/* DADOS */
+
+.dados {
+  position: relative;
+  text-align: center;
+  padding: 0 28px 30px;
+  margin-top: -82px;
+  z-index: 2;
+}
+
+.foto {
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  border: 7px solid #ffffff;
+  object-fit: cover;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255,255,255,0.55), transparent 28%),
+    var(--green-light);
+  box-shadow: 0 10px 26px rgba(95, 70, 58, 0.16);
+  display: block;
+  margin: 0 auto;
+}
+
+.dados h1 {
+  position: relative;
+  width: fit-content;
+  margin: 18px auto 0;
 
   font-family: var(--font-heading);
-  font-size: 12px;
+  font-size: 32px;
+  line-height: 1.1;
   font-weight: 800;
-  letter-spacing: 0.04em;
-
-  padding: 8px 13px;
-
-  border-radius: 999px 999px 8px 999px;
-  border: 1px solid rgba(168, 117, 97, 0.14);
-
-  box-shadow: 0 7px 16px rgba(95, 70, 58, 0.09);
-
-  transform: rotate(7deg);
-}
-
-/* Corações dentro do formulário */
-form::after {
-  content: "♡  ♥  ♡";
-  position: absolute;
-  left: 18px;
-  bottom: 16px;
-  z-index: 0;
-
-  color: rgba(175, 230, 157, 0.55);
-  font-size: 25px;
-  letter-spacing: 8px;
-
-  transform: rotate(-10deg);
-  pointer-events: none;
-}
-
-form input {
-  position: relative;
-  z-index: 1;
-
-  width: 100%;
-  padding: 14px 15px;
-
-  background:
-    linear-gradient(135deg, rgba(255, 250, 243, 0.98), rgba(255, 255, 255, 0.96));
-
-  border: 1px solid rgba(168, 117, 97, 0.18);
-  border-radius: 16px;
 
   color: var(--brown-dark);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-
-  box-sizing: border-box;
-  outline: none;
-
-  box-shadow: 0 5px 12px rgba(95, 70, 58, 0.045);
-
-  transition:
-    border-color 0.22s ease,
-    box-shadow 0.22s ease,
-    transform 0.22s ease,
-    background 0.22s ease;
 }
 
-form input::placeholder {
-  color: var(--brown-soft);
+.dados h1::after {
+  content: "♡";
+  margin-left: 8px;
+  color: var(--green-primary);
+  font-size: 20px;
 }
 
-form input:hover {
-  border-color: rgba(175, 230, 157, 0.55);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 243, 0.98));
-}
-
-form input:focus {
-  border-color: rgba(175, 230, 157, 0.95);
-  box-shadow:
-    0 0 0 4px rgba(175, 230, 157, 0.22),
-    0 8px 18px rgba(95, 70, 58, 0.07);
-
-  transform: translateY(-1px);
-}
-
-/* Botão */
-form input[type="submit"] {
-  margin-top: 8px;
-
-  background:
-    linear-gradient(135deg, var(--green-primary), var(--green-light));
-
-  color: var(--green-text);
-
-  border: none;
-  border-radius: 18px;
-
+.bio {
+  color: var(--brown-light);
   font-size: 15px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.btn-upload {
+  display: inline-block;
+  margin-top: 16px;
+
+  font-family: var(--font-body);
+  font-size: 13.5px;
   font-weight: 800;
-  letter-spacing: 0.02em;
+
+  padding: 10px 22px;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #ffffff, #fff7ef);
+  color: var(--brown-dark);
+
+  border: 1px solid rgba(168, 117, 97, 0.14);
+  box-shadow: 0 6px 16px rgba(95, 70, 58, 0.07);
 
   cursor: pointer;
+  transition: 0.18s ease;
+}
 
-  box-shadow:
-    0 9px 20px rgba(175, 230, 157, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+.btn-upload::before {
+  content: "♡ ";
+  color: var(--green-text);
+}
+
+.btn-upload:hover {
+  background: var(--green-light);
+  transform: translateY(-2px);
+}
+
+
+/* ESTATÍSTICAS */
+
+.estatisticas {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 4px 34px 36px;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+
+  background:
+    linear-gradient(135deg, rgba(255, 250, 243, 0.95), rgba(255, 255, 255, 0.96));
+
+  border: 1.5px solid rgba(175, 230, 157, 0.88);
+  border-radius: 22px;
+
+  padding: 22px 30px;
+  min-width: 150px;
+  text-align: center;
+
+  box-shadow: 0 8px 22px rgba(95, 70, 58, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card::before {
+  content: "♡";
+  position: absolute;
+  top: -12px;
+  right: 18px;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  background: var(--green-light);
+  color: var(--green-text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+  border: 2px solid #ffffff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(95, 70, 58, 0.12);
+  border-color: var(--green-primary);
+}
+
+.card h2 {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--green-text);
+}
+
+.card p {
+  font-size: 13px;
+  color: var(--brown-light);
+  margin-top: 7px;
+  font-weight: 700;
+}
+
+
+/* SEÇÃO */
+
+.secao {
+  position: relative;
+  padding: 32px 34px 40px;
+  border-top: 1px solid var(--border-color);
+}
+
+.secao h3 {
+  position: relative;
+  width: fit-content;
+
+  font-family: var(--font-heading);
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 800;
+
+  color: var(--brown-dark);
+  margin-bottom: 24px;
+}
+
+.secao h3::before {
+  content: "✦";
+  color: var(--green-primary);
+  margin-right: 9px;
+}
+
+.secao h3::after {
+  content: "";
+  position: absolute;
+  left: 28px;
+  bottom: -8px;
+
+  width: 70%;
+  height: 5px;
+
+  background: var(--green-primary);
+  border-radius: 999px;
+  opacity: 0.45;
+}
+
+
+/* INFORMAÇÕES */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.info-item {
+  position: relative;
+
+  background:
+    linear-gradient(135deg, rgba(255, 250, 243, 0.95), rgba(255, 255, 255, 0.92));
+
+  border: 1px solid rgba(168, 117, 97, 0.10);
+  border-radius: 17px;
+
+  padding: 16px 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  box-shadow: 0 5px 14px rgba(95, 70, 58, 0.04);
+}
+
+.info-item::after {
+  content: "♡";
+  position: absolute;
+  right: 14px;
+  top: 12px;
+
+  color: var(--green-primary);
+  opacity: 0.45;
+  font-size: 16px;
+}
+
+.info-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--green-text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.info-valor {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--brown-dark);
+}
+
+
+/* BOTÃO SAIR */
+
+.btn-sair {
+  display: inline-block;
+
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
+
+  padding: 12px 30px;
+  border-radius: 999px;
+
+  background: #fff3e7;
+  color: var(--brown-dark);
+  text-decoration: none;
+
+  border: 1px solid rgba(168, 117, 97, 0.12);
+  box-shadow: 0 7px 18px rgba(95, 70, 58, 0.06);
 
   transition:
     background 0.18s ease,
@@ -291,67 +453,104 @@ form input[type="submit"] {
     box-shadow 0.18s ease;
 }
 
-form input[type="submit"]::before {
-  content: "♡ ";
+.btn-sair:hover {
+  background: #f5e5d8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(95, 70, 58, 0.10);
 }
 
-form input[type="submit"]:hover {
-  background:
-    linear-gradient(135deg, var(--green-hover), var(--green-primary));
 
-  transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(175, 230, 157, 0.45);
-}
+/* RESPONSIVO */
 
-form input[type="submit"]:active {
-  transform: translateY(-1px) scale(0.99);
-}
-
-@media (max-width: 480px) {
-  body::before {
-    font-size: 13px;
-    letter-spacing: 9px;
+@media (max-width: 700px) {
+  .container {
+    width: 92%;
+    margin: 36px auto 56px;
   }
 
-  body::after {
-    width: 52px;
-    height: 52px;
-    right: 18px;
-    bottom: 18px;
-    font-size: 32px;
-  }
-
-  h2 {
-    margin-top: 48px;
-    margin-bottom: -44px;
-    font-size: 32px;
-  }
-
-  h2::before {
-    font-size: 12px;
-    padding: 8px 13px;
-  }
-
-  form {
-    width: 350px;
-    margin: 78px auto;
-    padding: 36px 22px 32px;
+  .perfil {
     border-radius: 26px;
   }
 
-  form::before {
-    top: 13px;
-    right: 14px;
-    font-size: 10.5px;
-    padding: 6px 10px;
+  .perfil::before {
+    left: 20px;
+    top: 20px;
+    font-size: 13px;
   }
 
-  form::after {
+  .perfil::after {
+    right: 22px;
+    top: 22px;
+    width: 42px;
+    height: 42px;
+    font-size: 26px;
+  }
+
+  .banner {
+    height: 188px;
+  }
+
+  .foto {
+    width: 138px;
+    height: 138px;
+  }
+
+  .dados {
+    margin-top: -74px;
+  }
+
+  .dados h1 {
+    font-size: 26px;
+  }
+
+  .estatisticas {
+    padding: 4px 24px 32px;
+  }
+
+  .card {
+    min-width: 135px;
+    padding: 20px 24px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .secao {
+    padding: 30px 24px 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  .container {
+    width: 94%;
+    margin-top: 28px;
+  }
+
+  .dados h1 {
+    font-size: 24px;
+  }
+
+  .bio {
+    font-size: 14px;
+  }
+
+  .estatisticas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .secao h3 {
     font-size: 20px;
-    letter-spacing: 5px;
-  }
-
-  form input {
-    padding: 13px;
   }
 }
