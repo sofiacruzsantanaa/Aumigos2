@@ -1,36 +1,77 @@
-<?php include_once 'includes/header.php'; ?>
-<link rel="stylesheet" href="assets/css/cadastro.css">
+<?php
+  $paginaCSS = 'assets/css/catalogo.css';
+  include_once 'includes/header.php';
 
-    <h2>Crie sua conta!</h2>
+  $caes  = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
+  $users = json_decode(file_get_contents(__DIR__ . '/data/users.json'), true);
 
-    <?php if (isset($_GET['erro'])): ?>
-        <?php if ($_GET['erro'] == 'senha'): ?>
-            <p style="color:red;">As senhas não coincidem!</p>
-        <?php else: ?>
-            <p style="color:red;">Preencha todos os campos corretamente!</p>
+  $curtidos = [];
+  if (isset($_SESSION['usuario'])) {
+      foreach ($users as $u) {
+          if ($u['email'] === $_SESSION['usuario']) {
+              $curtidos = $u['curtidos'] ?? [];
+              break;
+          }
+      }
+  }
+?>
+
+<main>
+
+  <section class="catalogo-hero">
+    <h1>AUmigos disponíveis</h1>
+    <p>Conheça os cães que estão esperando por um lar cheio de amor.</p>
+  </section>
+
+  <section class="catalogo">
+  <?php foreach ($caes as $cao):
+    $disponivel = $cao['disponivel'];
+    $saudavel   = $cao['saude'] === 'Saudável';
+    $favoritado = in_array($cao['id'], $curtidos);
+  ?>
+
+    <div class="card-cachorro <?php echo !$disponivel ? 'indisponivel' : ''; ?>">
+      <div class="card-img">
+        <img src="<?php echo htmlspecialchars($cao['foto']); ?>" alt="<?php echo htmlspecialchars($cao['nome']); ?>">
+        <?php if (!$disponivel): ?>
+          <div class="badge-indisponivel">Adotado 🐾</div>
         <?php endif; ?>
-    <?php endif; ?>
 
-    <form action="controllers/con_cadastro.php" method="POST">
+        <?php if (isset($_SESSION['usuario'])): ?>
+          <form method="POST" action="controllers/con_curtir.php">
+            <input type="hidden" name="id" value="<?php echo $cao['id']; ?>">
+            <input type="hidden" name="redirect" value="catalogo.php">
+            <button type="submit" class="btn-favorito <?php echo $favoritado ? 'favoritado' : ''; ?>" title="Favoritar">
+              <?php echo $favoritado ? '♥' : '♡'; ?>
+            </button>
+          </form>
+        <?php endif; ?>
+      </div>
 
-        <input type="text" name="nome" placeholder="Nome completo">
-        <input type="email" name="email" placeholder="E-mail">
-        <input type="text" name="cpf" placeholder="CPF" maxlength="14">
-        <input type="text" name="telefone" placeholder="Telefone" maxlength="15">
-        <input type="text" name="endereco" placeholder="Endereço">
-        <input type="password" name="senha" placeholder="Senha">
-        <input type="password" name="senha_confirm" placeholder="Confirmar senha">
-        <input type="submit" value="Cadastrar">
+      <div class="card-body">
+        <div class="card-header">
+          <h2><?php echo htmlspecialchars($cao['nome']); ?></h2>
+          <span class="<?php echo $saudavel ? 'badge-saudavel' : 'badge-doenca'; ?>">
+            <?php echo htmlspecialchars($cao['saude']); ?>
+          </span>
+        </div>
+        <div class="card-infos">
+          <span class="info-item"><strong>Raça</strong> <?php echo htmlspecialchars($cao['raca']); ?></span>
+          <span class="info-item"><strong>Idade</strong> <?php echo htmlspecialchars($cao['idade']); ?></span>
+          <span class="info-item"><strong>Porte</strong> <?php echo htmlspecialchars($cao['porte']); ?></span>
+        </div>
+        <p class="card-desc"><?php echo htmlspecialchars($cao['descricao']); ?></p>
 
-    </form>
+        <?php if ($disponivel): ?>
+          <a href="adotar.php?id=<?php echo $cao['id']; ?>" class="btn-adotar">Quero adotar</a>
+        <?php else: ?>
+          <button class="btn-adotar btn-indisponivel" disabled>Indisponível</button>
+        <?php endif; ?>
+      </div>
+    </div>
 
-
-
-    <p style="margin-top: 16px; font-size: 14px;">
-        Já tem conta? <a href="login.php">Entrar</a>
-    </p>
-</main>
-
+  <?php endforeach; ?>
+  </section>
 
 </main>
 
