@@ -1,22 +1,24 @@
 <?php
-  $paginaCSS = 'assets/css/adotar.css';
+session_start();
 
-  if (!isset($_SESSION['logado'])) {
-      header("Location: login.php");
-      exit();
-  }
+if (!isset($_SESSION['logado'])) {
+    header("Location: /CODIGOSWELISON/Aumigos/login.php");
+    exit();
+}
 
-  $id   = intval($_GET['id'] ?? 0);
-  $caes = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
+$paginaCSS = 'assets/css/adotar.css';
 
-  $cao = null;
-  foreach ($caes as $c) {
-      if ($c['id'] === $id) { $cao = $c; break; }
-  }
+$id   = intval($_GET['id'] ?? 0);
+$caes = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
 
-  $erro = $_GET['erro'] ?? '';
+$cao = null;
+foreach ($caes as $c) {
+    if ($c['id'] === $id) { $cao = $c; break; }
+}
 
-  include_once 'includes/header.php';
+$erro = $_GET['erro'] ?? '';
+
+include_once 'includes/header.php';
 ?>
 
 <main>
@@ -29,7 +31,6 @@
 <?php else: ?>
 
 <div class="adotar-box">
-
   <div class="adotar-cao">
     <img src="<?php echo htmlspecialchars($cao['foto']); ?>" alt="<?php echo htmlspecialchars($cao['nome']); ?>">
     <div class="adotar-cao-info">
@@ -117,11 +118,9 @@
       <a href="catalogo.php" class="btn-voltar">Cancelar</a>
     </form>
   </div>
-
 </div>
 
 <?php endif; ?>
-
 </main>
 
 <?php include_once 'includes/footer.php'; ?>
