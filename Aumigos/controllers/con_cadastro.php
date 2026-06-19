@@ -1,59 +1,84 @@
 <?php
 session_start();
 
-$nome          = $_POST['nome'];
-$email         = $_POST['email'];
-$cpf           = $_POST['cpf'];
-$telefone      = $_POST['telefone'];
-$endereco      = $_POST['endereco'];
-$senha         = $_POST['senha'];
-$senha_confirm = $_POST['senha_confirm'];
+function carregarUsuariosCadastro(string $arquivo): array
+{
+    if (!file_exists($arquivo)) {
+        return [];
+    }
 
+    $dados = json_decode(file_get_contents($arquivo), true);
 
-function emailJaCadastrado(array $usuarios, string $email): bool {
+    return is_array($dados) ? $dados : [];
+}
+
+function salvarUsuariosCadastro(string $arquivo, array $usuarios): void
+{
+    $pasta = dirname($arquivo);
+
+    if (!is_dir($pasta)) {
+        mkdir($pasta, 0777, true);
+    }
+
+    file_put_contents($arquivo, json_encode($usuarios, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+}
+
+function emailJaExiste(array $usuarios, string $email): bool
+{
     foreach ($usuarios as $u) {
-        if ($u['email'] === $email) {
+        if (strtolower($u['email'] ?? '') === strtolower($email)) {
             return true;
         }
     }
+
     return false;
 }
 
-function cadastrarUsuario(array $usuarios, string $nome, string $email, string $cpf, string $telefone, string $endereco, string $senha): array {
-    $senha_hash  = password_hash($senha, PASSWORD_DEFAULT);
-    $usuarios[] = [
-        'nome'     => $nome,
-        'email'    => $email,
-        'cpf'      => $cpf,
-        'telefone' => $telefone,
-        'endereco' => $endereco,
-        'senha'    => $senha_hash
+function cadastrarUsuario(): void
+{
+    $arquivo = __DIR__ . '/../data/users.json';
+
+    $nome = trim($_POST['nome'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
+    $cpf = trim($_POST['cpf'] ?? '');
+    $telefone = trim($_POST['telefone'] ?? '');
+    $endereco = trim($_POST['endereco'] ?? '');
+
+    if ($nome === '' || $email === '' || $senha === '' || $cpf === '' || $telefone === '' || $endereco === '') {
+        header("Location: ../cadastro.php?erro=1");
+        exit();
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../cadastro.php?erro=1");
+        exit();
+    }
+
+    $usuarios = carregarUsuariosCadastro($arquivo);
+
+    if (emailJaExiste($usuarios, $email)) {
+        header("Location: ../cadastro.php?email=1");
+        exit();
+    }
+
+    $novoUsuario = [
+        "nome" => $nome,
+        "email" => $email,
+        "senha" => password_hash($senha, PASSWORD_DEFAULT),
+        "cpf" => $cpf,
+        "telefone" => $telefone,
+        "endereco" => $endereco,
+        "foto" => "",
+        "curtidos" => []
     ];
-    return $usuarios;
-}
 
-if ($senha !== $senha_confirm) {
-    header("Location: ../cadastro.php?erro=senha");
+    $usuarios[] = $novoUsuario;
+
+    salvarUsuariosCadastro($arquivo, $usuarios);
+
+    header("Location: ../login.php?cadastro=1");
     exit();
 }
 
-$arquivo = '../data/users.json';
-
-if (file_exists($arquivo)) {
-    $usuarios = json_decode(file_get_contents($arquivo), true);
-} else {
-    $usuarios = [];
-}
-
-if (emailJaCadastrado($usuarios, $email)) {
-    header("Location: ../cadastro.php?erro=email");
-    exit();
-}
-
-$usuarios = cadastrarUsuario($usuarios, $nome, $email, $cpf, $telefone, $endereco, $senha);
-
-file_put_contents($arquivo, json_encode($usuarios, JSON_PRETTY_PRINT));
-
-header("Location: ../login.php");
-exit();
-?>
+cadastrarUsuario();

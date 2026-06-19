@@ -2,32 +2,44 @@
 session_start();
 
 if (!isset($_SESSION['logado'])) {
-    header("Location: /CODIGOSWELISON/Aumigos/login.php");
+    header("Location: login.php");
     exit();
 }
 
 $paginaCSS = 'assets/css/requisitos.css';
 
-$id          = intval($_POST['id'] ?? 0);
-$motivo      = $_POST['motivo'] ?? '';
-$pessoas     = $_POST['pessoas'] ?? '';
-$animais     = $_POST['outros_animais'] ?? '';
-$quintal     = $_POST['quintal'] ?? '';
-$experiencia = $_POST['experiencia'] ?? '';
+$id = intval($_POST['id'] ?? 0);
+$motivo = trim($_POST['motivo'] ?? '');
+$pessoas = trim($_POST['pessoas'] ?? '');
+$animais = trim($_POST['outros_animais'] ?? '');
+$quintal = trim($_POST['quintal'] ?? '');
+$experiencia = trim($_POST['experiencia'] ?? '');
 
 if (!$id || !$motivo || !$pessoas || !$animais || !$quintal || !$experiencia) {
-    header("Location: /CODIGOSWELISON/Aumigos/catalogo.php");
+    header("Location: catalogo.php");
     exit();
 }
 
-$caes = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
-$cao  = null;
-foreach ($caes as $c) {
-    if ($c['id'] === $id) { $cao = $c; break; }
+$arqCaes = __DIR__ . '/data/caes.json';
+$caes = [];
+$cao = null;
+
+if (file_exists($arqCaes)) {
+    $dados = json_decode(file_get_contents($arqCaes), true);
+    if (is_array($dados)) {
+        $caes = $dados;
+    }
 }
 
-if (!$cao || !$cao['disponivel']) {
-    header("Location: /CODIGOSWELISON/Aumigos/catalogo.php?erro=indisponivel");
+foreach ($caes as $c) {
+    if ((int) ($c['id'] ?? 0) === $id) {
+        $cao = $c;
+        break;
+    }
+}
+
+if (!$cao || !($cao['disponivel'] ?? false)) {
+    header("Location: catalogo.php?erro=indisponivel");
     exit();
 }
 
@@ -45,33 +57,40 @@ include_once 'includes/header.php';
   </div>
 
   <h1>Requisitos para adoção</h1>
-  <p class="req-sub">Você está quase lá! Leia com atenção e preencha os campos abaixo para adotar <strong><?php echo htmlspecialchars($cao['nome']); ?></strong>.</p>
+
+  <p class="req-sub">
+    Você está quase lá! Leia com atenção e preencha os campos abaixo para adotar
+    <strong><?php echo htmlspecialchars($cao['nome'] ?? 'este cão'); ?></strong>.
+  </p>
 
   <?php if (isset($_GET['erro'])): ?>
     <div class="req-erro">Preencha todos os campos e aceite os termos antes de continuar.</div>
   <?php endif; ?>
 
   <form action="controllers/con_adotar.php" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="id"             value="<?php echo $id; ?>">
-    <input type="hidden" name="motivo"         value="<?php echo htmlspecialchars($motivo); ?>">
-    <input type="hidden" name="pessoas"        value="<?php echo htmlspecialchars($pessoas); ?>">
+    <input type="hidden" name="id" value="<?php echo $id; ?>">
+    <input type="hidden" name="motivo" value="<?php echo htmlspecialchars($motivo); ?>">
+    <input type="hidden" name="pessoas" value="<?php echo htmlspecialchars($pessoas); ?>">
     <input type="hidden" name="outros_animais" value="<?php echo htmlspecialchars($animais); ?>">
-    <input type="hidden" name="quintal"        value="<?php echo htmlspecialchars($quintal); ?>">
-    <input type="hidden" name="experiencia"    value="<?php echo htmlspecialchars($experiencia); ?>">
+    <input type="hidden" name="quintal" value="<?php echo htmlspecialchars($quintal); ?>">
+    <input type="hidden" name="experiencia" value="<?php echo htmlspecialchars($experiencia); ?>">
 
     <div class="req-bloco">
       <div class="req-bloco-titulo"><span class="req-num">1</span> Documentação</div>
       <p class="req-bloco-desc">Envie os documentos necessários para realizar a adoção.</p>
+
       <div class="campo-doc">
-        <label>RG (frente e verso)</label>
+        <label>RG</label>
         <input type="file" name="doc_rg" accept="image/*,.pdf" required>
       </div>
+
       <div class="campo-doc">
         <label>CPF</label>
         <input type="file" name="doc_cpf" accept="image/*,.pdf" required>
       </div>
+
       <div class="campo-doc">
-        <label>Comprovante de residência (atualizado)</label>
+        <label>Comprovante de residência</label>
         <input type="file" name="doc_residencia" accept="image/*,.pdf" required>
       </div>
     </div>
@@ -79,15 +98,17 @@ include_once 'includes/header.php';
     <div class="req-bloco">
       <div class="req-bloco-titulo"><span class="req-num">2</span> Concordância familiar</div>
       <p class="req-bloco-desc">Todos os moradores devem estar de acordo com a adoção.</p>
+
       <label class="check-label">
         <input type="checkbox" name="concordancia" required>
-        <span>Confirmo que todos que moram comigo estão de acordo com a chegada de <?php echo htmlspecialchars($cao['nome']); ?>.</span>
+        <span>Confirmo que todos que moram comigo estão de acordo com a chegada do cão.</span>
       </label>
     </div>
 
     <div class="req-bloco">
       <div class="req-bloco-titulo"><span class="req-num">3</span> Posse responsável</div>
       <p class="req-bloco-desc">Ter um cachorro envolve custos mensais com alimentação, veterinário e vacinas.</p>
+
       <label class="check-label">
         <input type="checkbox" name="financeiro" required>
         <span>Declaro que tenho condições financeiras de arcar com os cuidados necessários.</span>
@@ -97,20 +118,23 @@ include_once 'includes/header.php';
     <div class="req-bloco">
       <div class="req-bloco-titulo"><span class="req-num">4</span> Taxa de adoção</div>
       <p class="req-bloco-desc">A taxa cobre custos operacionais como vacinas e cuidados pré-adoção.</p>
+
       <div class="taxa-box">
         <div class="taxa-valor">R$ 30,00</div>
         <div class="taxa-desc">Taxa única de adoção</div>
       </div>
+
       <label class="check-label">
         <input type="checkbox" name="taxa" required>
-        <span>Estou ciente da taxa de adoção no valor de R$ 150,00 e concordo com o pagamento.</span>
+        <span>Estou ciente da taxa de adoção no valor de R$ 30,00 e concordo com o pagamento.</span>
       </label>
     </div>
 
     <div class="req-bloco">
       <div class="req-bloco-titulo"><span class="req-num">5</span> Termo de responsabilidade</div>
+
       <div class="termo-texto">
-        <p>Eu declaro que estou adotando <strong><?php echo htmlspecialchars($cao['nome']); ?></strong> de forma consciente e responsável, comprometendo-me a:</p>
+        <p>Eu declaro que estou adotando de forma consciente e responsável, comprometendo-me a:</p>
         <ul>
           <li>Garantir alimentação adequada, água limpa e abrigo seguro;</li>
           <li>Manter as vacinas e consultas veterinárias em dia;</li>
@@ -119,6 +143,7 @@ include_once 'includes/header.php';
           <li>Zelar pelo bem-estar físico e emocional do animal.</li>
         </ul>
       </div>
+
       <label class="check-label">
         <input type="checkbox" name="termo" required>
         <span>Li e aceito o termo de responsabilidade acima.</span>

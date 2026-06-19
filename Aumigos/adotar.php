@@ -2,18 +2,30 @@
 session_start();
 
 if (!isset($_SESSION['logado'])) {
-    header("Location: /CODIGOSWELISON/Aumigos/login.php");
+    header("Location: login.php");
     exit();
 }
 
 $paginaCSS = 'assets/css/adotar.css';
 
-$id   = intval($_GET['id'] ?? 0);
-$caes = json_decode(file_get_contents(__DIR__ . '/data/caes.json'), true);
+$id = intval($_GET['id'] ?? 0);
+$arqCaes = __DIR__ . '/data/caes.json';
 
+$caes = [];
 $cao = null;
+
+if (file_exists($arqCaes)) {
+    $dados = json_decode(file_get_contents($arqCaes), true);
+    if (is_array($dados)) {
+        $caes = $dados;
+    }
+}
+
 foreach ($caes as $c) {
-    if ($c['id'] === $id) { $cao = $c; break; }
+    if ((int) ($c['id'] ?? 0) === $id) {
+        $cao = $c;
+        break;
+    }
 }
 
 $erro = $_GET['erro'] ?? '';
@@ -23,7 +35,8 @@ include_once 'includes/header.php';
 
 <main>
 
-<?php if (!$cao || !$cao['disponivel']): ?>
+<?php if (!$cao || !($cao['disponivel'] ?? false)): ?>
+
   <div class="adotar-vazio">
     <p>Cão não encontrado ou já adotado. <a href="catalogo.php">Voltar ao catálogo</a></p>
   </div>
@@ -32,43 +45,52 @@ include_once 'includes/header.php';
 
 <div class="adotar-box">
   <div class="adotar-cao">
-    <img src="<?php echo htmlspecialchars($cao['foto']); ?>" alt="<?php echo htmlspecialchars($cao['nome']); ?>">
+    <img src="<?php echo htmlspecialchars($cao['foto'] ?? ''); ?>" alt="<?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?>">
+
     <div class="adotar-cao-info">
-      <h2><?php echo htmlspecialchars($cao['nome']); ?></h2>
-      <span class="<?php echo $cao['saude'] === 'Saudável' ? 'badge-saudavel' : 'badge-doenca'; ?>">
-        <?php echo htmlspecialchars($cao['saude']); ?>
+      <h2><?php echo htmlspecialchars($cao['nome'] ?? 'Cão'); ?></h2>
+
+      <span class="<?php echo ($cao['saude'] ?? '') === 'Saudável' ? 'badge-saudavel' : 'badge-doenca'; ?>">
+        <?php echo htmlspecialchars($cao['saude'] ?? 'Não informado'); ?>
       </span>
+
       <div class="adotar-detalhes">
         <div class="detalhe-item">
           <span class="detalhe-label">Raça</span>
-          <span class="detalhe-valor"><?php echo htmlspecialchars($cao['raca']); ?></span>
+          <span class="detalhe-valor"><?php echo htmlspecialchars($cao['raca'] ?? 'Não informado'); ?></span>
         </div>
+
         <div class="detalhe-item">
           <span class="detalhe-label">Idade</span>
-          <span class="detalhe-valor"><?php echo htmlspecialchars($cao['idade']); ?></span>
+          <span class="detalhe-valor"><?php echo htmlspecialchars($cao['idade'] ?? 'Não informado'); ?></span>
         </div>
+
         <div class="detalhe-item">
           <span class="detalhe-label">Porte</span>
-          <span class="detalhe-valor"><?php echo htmlspecialchars($cao['porte']); ?></span>
+          <span class="detalhe-valor"><?php echo htmlspecialchars($cao['porte'] ?? 'Não informado'); ?></span>
         </div>
       </div>
-      <p class="adotar-desc"><?php echo htmlspecialchars($cao['descricao']); ?></p>
+
+      <p class="adotar-desc"><?php echo htmlspecialchars($cao['descricao'] ?? ''); ?></p>
     </div>
   </div>
 
   <div class="adotar-form">
     <h1>Formulário de adoção</h1>
-    <p class="form-subtitulo">Conte um pouco sobre você para adotar <strong><?php echo htmlspecialchars($cao['nome']); ?></strong></p>
+
+    <p class="form-subtitulo">
+      Conte um pouco sobre você para adotar <strong><?php echo htmlspecialchars($cao['nome'] ?? 'este cão'); ?></strong>
+    </p>
 
     <?php if ($erro): ?>
       <div class="form-erro">Preencha todos os campos antes de continuar.</div>
     <?php endif; ?>
 
     <form action="requisitos.php" method="POST">
-      <input type="hidden" name="id" value="<?php echo $cao['id']; ?>">
+      <input type="hidden" name="id" value="<?php echo (int) ($cao['id'] ?? 0); ?>">
 
       <div class="campo">
-        <label>Por que você quer adotar <?php echo htmlspecialchars($cao['nome']); ?>?</label>
+        <label>Por que você quer adotar <?php echo htmlspecialchars($cao['nome'] ?? 'este cão'); ?>?</label>
         <textarea name="motivo" placeholder="Conte sua motivação..." rows="3" required></textarea>
       </div>
 
@@ -111,7 +133,7 @@ include_once 'includes/header.php';
       </div>
 
       <div class="adotar-aviso">
-        <strong>Atenção:</strong> ao confirmar, você assume o compromisso de cuidar com amor e responsabilidade de <?php echo htmlspecialchars($cao['nome']); ?>.
+        <strong>Atenção:</strong> ao confirmar, você assume o compromisso de cuidar com amor e responsabilidade.
       </div>
 
       <button type="submit" class="btn-confirmar">Confirmar adoção</button>
@@ -121,6 +143,7 @@ include_once 'includes/header.php';
 </div>
 
 <?php endif; ?>
+
 </main>
 
 <?php include_once 'includes/footer.php'; ?>

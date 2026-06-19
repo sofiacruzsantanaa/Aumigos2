@@ -1,46 +1,59 @@
 <?php
 session_start();
 
-$arquivo = __DIR__ . '/../data/users.json';
+function carregarUsuarios(string $arquivo): array
+{
+    if (!file_exists($arquivo)) {
+        return [];
+    }
 
-$usuario = trim($_POST['usuario'] ?? '');
-$senha   = trim($_POST['senha'] ?? '');
+    $dados = json_decode(file_get_contents($arquivo), true);
 
-if ($usuario === '' || $senha === '') {
-    header("Location: ../login.php?erro=1");
-    exit();
+    return is_array($dados) ? $dados : [];
 }
 
-if (!file_exists($arquivo)) {
-    header("Location: ../login.php?erro=1");
-    exit();
+function senhaConfere(string $senhaDigitada, string $senhaSalva): bool
+{
+    if (password_verify($senhaDigitada, $senhaSalva)) {
+        return true;
+    }
+
+    return $senhaDigitada === $senhaSalva;
 }
 
-$usuarios = json_decode(file_get_contents($arquivo), true);
+function fazerLogin(): void
+{
+    $arquivo = __DIR__ . '/../data/users.json';
 
-if (!is_array($usuarios)) {
-    header("Location: ../login.php?erro=1");
-    exit();
-}
+    $usuario = trim($_POST['usuario'] ?? '');
+    $senha = trim($_POST['senha'] ?? '');
 
-foreach ($usuarios as $u) {
-    $emailSalvo = $u['email'] ?? '';
-    $senhaSalva = $u['senha'] ?? '';
-
-    $loginCorreto = strtolower($usuario) === strtolower($emailSalvo);
-
-    // Aceita senha normal ou senha criptografada com password_hash
-    $senhaCorreta = $senha === $senhaSalva || password_verify($senha, $senhaSalva);
-
-    if ($loginCorreto && $senhaCorreta) {
-        $_SESSION['logado'] = true;
-        $_SESSION['usuario'] = $emailSalvo;
-        $_SESSION['nome'] = $u['nome'] ?? '';
-
-        header("Location: ../inicio.php");
+    if ($usuario === '' || $senha === '') {
+        header("Location: ../login.php?erro=1");
         exit();
     }
+
+    $usuarios = carregarUsuarios($arquivo);
+
+    foreach ($usuarios as $u) {
+        $emailSalvo = $u['email'] ?? '';
+        $senhaSalva = $u['senha'] ?? '';
+
+        $emailConfere = strtolower($usuario) === strtolower($emailSalvo);
+        $senhaOk = senhaConfere($senha, $senhaSalva);
+
+        if ($emailConfere && $senhaOk) {
+            $_SESSION['logado'] = true;
+            $_SESSION['usuario'] = $emailSalvo;
+            $_SESSION['nome'] = $u['nome'] ?? '';
+
+            header("Location: ../inicio.php");
+            exit();
+        }
+    }
+
+    header("Location: ../login.php?erro=1");
+    exit();
 }
 
-header("Location: ../login.php?erro=1");
-exit();
+fazerLogin();
