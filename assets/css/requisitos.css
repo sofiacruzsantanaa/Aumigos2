@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Poppins', sans-serif !important;
+    
+}
+
+body {
+    background-color: rgb(255, 248, 240);
+}
+
+h1 {
+    padding: 16px 30px 10px 30px;
+}
+
+header {
+    padding: 12px 30px;
+    background-color: rgb(185, 247, 189);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-links {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgb(81, 110, 88) !important;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.nav-right {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-castrar {
+    background: #7c715e;
+    border: none;
+    color: white !important;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+.btn-castrar:hover {
+    background: #746b55;
+}
+
+.btn-entrar {
+    background: transparent;
+    border: none;
+    color: rgb(81, 110, 88) !important;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-entrar:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+footer {
+    padding: 20px 30px 10px 30px;
+    background-color: rgb(134, 195, 137);
+    color: rgb(255, 245, 232);
+}
+
+main {
+    width: 80%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.form-box {
+    background: white;
+    border: 1.5px solid rgb(134, 195, 137);
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 320px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-box h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.form-box input {
+    padding: 10px 14px;
+    border: 1.5px solid rgb(134, 195, 137);
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    outline: none;
+    width: 100%;
+}
+
+.form-box input:focus {
+    border-color: rgb(81, 110, 88);
+}
+
+.form-box input[type="submit"] {
+    background: rgb(81, 110, 88);
+    color: white !important;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    margin-top: 6px;
+    padding: 12px;
+}
+
+.form-box input[type="submit"]:hover {
+    background: rgb(55, 80, 60);
+}
+.nav-links a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: white !important;
+}
+
+.btn-entrar:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: white !important;
+}
