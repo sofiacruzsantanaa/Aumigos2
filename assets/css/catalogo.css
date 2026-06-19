@@ -1,0 +1,567 @@
+:root {
+  --font-heading: 'Fredoka', Arial, sans-serif;
+  --font-body: 'Fredoka', Arial, sans-serif;
+
+  --bg-main: #fffaf3;
+  --bg-page: #fffaf3;
+  --bg-card: #ffffff;
+  --bg-card-img: #f1e7df;
+
+  --green-primary: #afe69d;
+  --green-light: #d7f7cb;
+  --green-hover: #9edc8d;
+  --green-text: #47763c;
+
+  --brown-dark: #8f604f;
+  --brown-mid: #a87561;
+  --brown-light: #9f8174;
+  --brown-soft: #c9aa9b;
+
+  --border-color: #efe3dc;
+  --shadow-soft: rgba(95, 70, 58, 0.10);
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 18%, rgba(175, 230, 157, 0.12), transparent 26%),
+    radial-gradient(circle at 92% 30%, rgba(168, 117, 97, 0.08), transparent 24%),
+    var(--bg-main);
+  font-family: var(--font-body);
+  color: var(--brown-mid);
+}
+
+
+
+
+.catalogo-hero {
+  position: relative;
+  text-align: center;
+  padding: 78px 40px 46px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 16% 24%, rgba(175, 230, 157, 0.20), transparent 28%),
+    radial-gradient(circle at 84% 18%, rgba(168, 117, 97, 0.10), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(175, 230, 157, 0.16), transparent 34%);
+}
+
+.catalogo-hero::before {
+  content: "AU!";
+  position: absolute;
+  left: 10%;
+  top: 34px;
+
+  background: #ffffff;
+  color: var(--brown-dark);
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 800;
+
+  padding: 10px 16px;
+  border-radius: 999px 999px 999px 8px;
+  border: 1px solid rgba(168, 117, 97, 0.14);
+  box-shadow: 0 8px 20px rgba(95, 70, 58, 0.09);
+
+  transform: rotate(-8deg);
+}
+
+.catalogo-hero::after {
+  content: "♡";
+  position: absolute;
+  right: 12%;
+  bottom: 28px;
+
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--green-text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 34px;
+  border: 1px solid rgba(168, 117, 97, 0.10);
+  box-shadow: 0 10px 24px rgba(95, 70, 58, 0.08);
+
+  transform: rotate(12deg);
+}
+
+.catalogo-hero h1 {
+  position: relative;
+
+  max-width: 760px;
+  margin: 0 auto 14px;
+
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 5vw, 54px);
+  line-height: 1.05;
+  font-weight: 800;
+
+  color: var(--brown-dark);
+  letter-spacing: -1px;
+}
+
+.catalogo-hero h1::before {
+  content: "♥";
+  display: block;
+
+  width: fit-content;
+  margin: 0 auto 16px;
+
+  color: var(--green-primary);
+  font-size: 42px;
+
+  filter: drop-shadow(0 6px 10px rgba(175, 230, 157, 0.38));
+}
+
+.catalogo-hero h1::after {
+  content: "";
+  display: block;
+
+  width: 92px;
+  height: 7px;
+  margin: 16px auto 0;
+
+  background: var(--green-primary);
+  border-radius: 999px;
+  opacity: 0.55;
+}
+
+.catalogo-hero p {
+  position: relative;
+
+  max-width: 560px;
+  margin: 0 auto;
+
+  font-size: 17px;
+  line-height: 1.75;
+  font-weight: 600;
+  color: var(--brown-mid);
+}
+
+.catalogo {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 18px 40px 80px;
+}
+
+.catalogo::before {
+  content: "♡";
+  position: absolute;
+  left: 4px;
+  top: 42%;
+
+  color: var(--green-primary);
+  font-size: 48px;
+  opacity: 0.28;
+
+  transform: rotate(-18deg);
+}
+
+.catalogo::after {
+  content: "♥";
+  position: absolute;
+  right: 4px;
+  bottom: 90px;
+
+  color: var(--brown-soft);
+  font-size: 36px;
+  opacity: 0.25;
+
+  transform: rotate(16deg);
+}
+
+
+/* =========================
+   CARD DO CACHORRO
+========================= */
+
+.card-cachorro {
+  position: relative;
+
+  background-color: var(--bg-card);
+  border: 1px solid rgba(168, 117, 97, 0.10);
+  border-radius: 26px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 0 10px 26px rgba(95, 70, 58, 0.08);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.card-cachorro::before {
+  content: "♡";
+  position: absolute;
+  z-index: 3;
+  left: 14px;
+  top: 14px;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--green-text);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+  box-shadow: 0 6px 14px rgba(95, 70, 58, 0.10);
+  backdrop-filter: blur(5px);
+}
+
+.card-cachorro:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(95, 70, 58, 0.14);
+  border-color: rgba(175, 230, 157, 0.75);
+}
+
+
+/* =========================
+   IMAGEM DO CARD
+========================= */
+
+.card-img {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 4 / 3;
+
+  background:
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.42), transparent 28%),
+    linear-gradient(135deg, #f4e9df, var(--bg-card-img));
+
+  overflow: hidden;
+}
+
+.card-img::after {
+  content: "ADOTE";
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--brown-dark);
+
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+
+  padding: 7px 12px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(95, 70, 58, 0.10);
+  backdrop-filter: blur(4px);
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  transition: transform 0.35s ease;
+}
+
+.card-cachorro:hover .card-img img {
+  transform: scale(1.04);
+}
+
+
+/* =========================
+   BOTÃO FAVORITO
+========================= */
+
+.btn-favorito {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 4;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(168, 117, 97, 0.12);
+
+  background-color: rgba(255, 255, 255, 0.86);
+  color: var(--brown-mid);
+
+  font-size: 19px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 8px 18px rgba(95, 70, 58, 0.10);
+  backdrop-filter: blur(5px);
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.btn-favorito:hover {
+  background-color: #fff;
+  color: #e05555;
+  transform: scale(1.08);
+}
+
+.btn-favorito.favoritado {
+  background-color: #ffe0e0;
+  color: #e05555;
+}
+
+
+
+
+.card-body {
+  padding: 22px 20px 22px;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+  gap: 10px;
+}
+
+.card-header h2 {
+  position: relative;
+
+  font-family: var(--font-heading);
+  font-size: 23px;
+  line-height: 1.1;
+  font-weight: 800;
+
+  color: var(--brown-dark);
+  margin-bottom: 0;
+}
+
+.card-header h2::after {
+  content: "♡";
+  margin-left: 7px;
+
+  color: var(--green-primary);
+  font-size: 16px;
+}
+
+
+
+
+.badge-saudavel,
+.badge-doenca {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+
+  padding: 6px 11px;
+  border-radius: 999px;
+
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}
+
+.badge-saudavel {
+  background-color: var(--green-primary);
+  color: var(--green-text);
+}
+
+.badge-doenca {
+  background-color: #fde8c8;
+  color: #a05a10;
+}
+
+
+.card-infos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+
+  margin-bottom: 14px;
+}
+
+.info-item {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--brown-mid);
+
+  background:
+    linear-gradient(135deg, rgba(255, 250, 243, 0.95), rgba(255, 255, 255, 0.92));
+
+  border: 1px solid rgba(168, 117, 97, 0.10);
+  border-radius: 13px;
+
+  padding: 8px 11px;
+
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+
+  box-shadow: 0 4px 10px rgba(95, 70, 58, 0.04);
+}
+
+.info-item strong {
+  font-size: 10px;
+  font-weight: 800;
+
+  color: var(--green-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  margin-bottom: 2px;
+}
+
+
+.card-desc {
+  flex: 1;
+
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--brown-light);
+
+  margin-bottom: 18px;
+}
+
+
+.btn-adotar {
+  position: relative;
+
+  display: block;
+  width: 100%;
+
+  text-align: center;
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+
+  padding: 13px 16px;
+
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, var(--green-primary), var(--green-light));
+
+  color: var(--green-text);
+
+  box-shadow: 0 8px 18px rgba(175, 230, 157, 0.30);
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.btn-adotar::before {
+  content: "♡ ";
+}
+
+.btn-adotar:hover {
+  background:
+    linear-gradient(135deg, var(--green-hover), var(--green-primary));
+
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(175, 230, 157, 0.40);
+}
+
+
+@media (max-width: 768px) {
+  .catalogo-hero {
+    padding: 66px 22px 40px;
+  }
+
+  .catalogo-hero::before {
+    left: 6%;
+    top: 24px;
+    font-size: 13px;
+    padding: 8px 13px;
+  }
+
+  .catalogo-hero::after {
+    right: 7%;
+    width: 46px;
+    height: 46px;
+    font-size: 28px;
+  }
+
+  .catalogo-hero p {
+    font-size: 15.5px;
+  }
+
+  .catalogo {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 22px;
+    padding: 12px 22px 64px;
+  }
+
+  .catalogo::before,
+  .catalogo::after {
+    display: none;
+  }
+
+  .card-header h2 {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalogo-hero {
+    padding: 56px 18px 34px;
+  }
+
+  .catalogo-hero h1 {
+    font-size: 34px;
+  }
+
+  .catalogo-hero h1::before {
+    font-size: 36px;
+  }
+
+  .catalogo {
+    grid-template-columns: 1fr;
+    padding: 10px 18px 56px;
+  }
+
+  .card-body {
+    padding: 20px 18px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge-saudavel,
+  .badge-doenca {
+    font-size: 10.5px;
+  }
+}

@@ -1,0 +1,258 @@
+:root {
+  --font-heading: 'Fredoka', Arial, sans-serif;
+  --font-body: 'Fredoka', Arial, sans-serif;
+
+  --bg-main: #fffaf3;
+  --bg-card: #ffffff;
+
+  --green-primary: #afe69d;
+  --green-light: #d7f7cb;
+  --green-hover: #9edc8d;
+  --green-text: #47763c;
+
+  --brown-dark: #8f604f;
+  --brown-mid: #a87561;
+  --brown-light: #9f8174;
+  --brown-soft: #c9aa9b;
+
+  --border-color: #efe3dc;
+  --shadow-soft: rgba(95, 70, 58, 0.10);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+
+  background:
+    radial-gradient(circle at 8% 18%, rgba(175, 230, 157, 0.14), transparent 26%),
+    radial-gradient(circle at 92% 30%, rgba(168, 117, 97, 0.09), transparent 24%),
+    radial-gradient(circle at 50% 100%, rgba(175, 230, 157, 0.12), transparent 32%),
+    var(--bg-main);
+
+  font-family: var(--font-body);
+  color: var(--brown-mid);
+}
+
+h2 {
+  position: relative;
+
+  text-align: center;
+  color: var(--brown-dark);
+
+  margin-top: 55px;
+  margin-bottom: 22px;
+
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.1;
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+h2::before {
+  content: "♡";
+  display: block;
+
+  width: fit-content;
+  margin: 0 auto 10px;
+
+  color: var(--green-primary);
+  font-size: 38px;
+
+  filter: drop-shadow(0 6px 10px rgba(175, 230, 157, 0.38));
+}
+
+h2::after {
+  content: "";
+  display: block;
+
+  width: 76px;
+  height: 6px;
+
+  margin: 14px auto 0;
+
+  background: var(--green-primary);
+  border-radius: 999px;
+  opacity: 0.6;
+}
+
+form {
+  position: relative;
+
+  width: 360px;
+  max-width: calc(100% - 42px);
+
+  margin: 20px auto;
+  padding: 32px 28px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border-radius: 26px;
+  border: 1px solid rgba(168, 117, 97, 0.12);
+
+  box-shadow: 0 12px 30px rgba(95, 70, 58, 0.10);
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+form::before {
+  content: "AU!";
+  position: absolute;
+  top: 16px;
+  right: 18px;
+
+  background: #ffffff;
+  color: var(--brown-dark);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  padding: 7px 12px;
+
+  border-radius: 999px 999px 8px 999px;
+  border: 1px solid rgba(168, 117, 97, 0.14);
+
+  box-shadow: 0 6px 14px rgba(95, 70, 58, 0.08);
+
+  transform: rotate(8deg);
+}
+
+form::after {
+  content: "♡";
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+
+  color: var(--green-primary);
+  font-size: 24px;
+  opacity: 0.38;
+
+  transform: rotate(-14deg);
+}
+
+/* Inputs */
+form input {
+  width: 100%;
+  padding: 13px 14px;
+
+  background:
+    linear-gradient(135deg, rgba(255, 250, 243, 0.95), rgba(255, 255, 255, 0.95));
+
+  border: 1px solid rgba(168, 117, 97, 0.16);
+  border-radius: 15px;
+
+  color: var(--brown-dark);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+
+  outline: none;
+  box-sizing: border-box;
+
+  box-shadow: 0 4px 10px rgba(95, 70, 58, 0.04);
+
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+form input::placeholder {
+  color: var(--brown-soft);
+}
+
+form input:focus {
+  border-color: rgba(175, 230, 157, 0.95);
+  box-shadow: 0 0 0 4px rgba(175, 230, 157, 0.22);
+  transform: translateY(-1px);
+}
+
+form input[type="submit"] {
+  margin-top: 6px;
+
+  background:
+    linear-gradient(135deg, var(--green-primary), var(--green-light));
+
+  color: var(--green-text);
+
+  border: none;
+  border-radius: 16px;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 18px rgba(175, 230, 157, 0.30);
+
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+form input[type="submit"]:hover {
+  background:
+    linear-gradient(135deg, var(--green-hover), var(--green-primary));
+
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(175, 230, 157, 0.40);
+}
+
+p {
+  text-align: center;
+
+  color: var(--brown-mid);
+  font-size: 14px;
+  font-weight: 600;
+
+  margin-top: 18px;
+}
+
+a {
+  color: var(--green-text);
+  text-decoration: none;
+  font-weight: 800;
+
+  transition:
+    color 0.18s ease,
+    text-decoration-color 0.18s ease;
+}
+
+a::before {
+  content: "♡ ";
+  color: var(--green-primary);
+}
+
+a:hover {
+  color: var(--brown-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--green-primary);
+}
+
+@media (max-width: 480px) {
+  h2 {
+    margin-top: 42px;
+    font-size: 32px;
+  }
+
+  h2::before {
+    font-size: 34px;
+  }
+
+  form {
+    padding: 30px 22px;
+    border-radius: 24px;
+  }
+
+  form::before {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}

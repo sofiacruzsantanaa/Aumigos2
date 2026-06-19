@@ -1,0 +1,42 @@
+.favoritos-vazio {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.favoritos-vazio-icone {
+  font-size: 64px;
+  color: #ecddd0;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.favoritos-vazio h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #7a5c3a;
+  margin-bottom: 8px;
+}
+
+.favoritos-vazio p {
+  font-size: 15px;
+  color: #a08060;
+  margin-bottom: 24px;
+}
+
+.btn-ver-caes {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 13px 32px;
+  border-radius: 999px;
+  background-color: #B9E4A5;
+  color: #3a6b2a;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.btn-ver-caes:hover {
+  background-color: #9FD38B;
+}
