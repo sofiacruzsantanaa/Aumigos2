@@ -53,5 +53,15 @@
         "telefone": "",
         "endereco": "",
         "senha": "$2y$10$pBqNi.oVfYhxWrW\/Drpo0.ZXtaSmeO\/tVI8td7Ps5knVnC273G2xW"
+    },
+    {
+        "nome": "Sofia Santana Cruz",
+        "email": "sofiasantanacruz40@gmail.com",
+        "senha": "$2y$10$vGI8RGDJuaOkPepzHPYn\/.qlKdRFNcfxjnCReqU9YptU8SxIWcDa6",
+        "cpf": "47749404880",
+        "telefone": "77998102798",
+        "endereco": "Rua Vila Celeste",
+        "foto": "uploads\/perfil\/perfil_6a35311adc48d7.15788915.jpg",
+        "curtidos": []
     }
 ]

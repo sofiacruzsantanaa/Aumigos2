@@ -10,7 +10,7 @@
     <p style="color:red; text-align:center;">Email ou senha incorretos!</p>
   <?php endif; ?>
 
-  <form action="controllers/con_login.php" method="POST">
+  <form action="controllers/con_loginnovo.php" method="POST">
     <input type="text" name="usuario" placeholder="Usuário">
     <input type="password" name="senha" placeholder="Senha">
     <input type="submit" value="Entrar">

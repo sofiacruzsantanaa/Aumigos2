@@ -46,7 +46,7 @@ include_once 'includes/header.php';
       <h1><?php echo htmlspecialchars($usuarioLogado['nome'] ?? 'Usuário'); ?></h1>
       <p class="bio"><?php echo htmlspecialchars($usuarioLogado['email'] ?? ''); ?></p>
 
-      <form action="controllers/con_foto.php" method="POST" enctype="multipart/form-data" style="margin-top:14px;">
+      <form action="controllers/con_fotoperfil.php" method="POST" enctype="multipart/form-data" style="margin-top:14px;">
         <label class="btn-upload">
           Escolher foto
           <input type="file" name="foto" accept="image/*" required>
