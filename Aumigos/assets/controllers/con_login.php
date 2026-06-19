@@ -1,15 +1,18 @@
 <?php
 session_start();
 
-$usuario = $_POST['usuario'];
-$senha   = $_POST['senha'];
+function obterDadosLogin(): array {
+    return [
+        'usuario' => $_POST['usuario'] ?? '',
+        'senha'   => $_POST['senha']   ?? '',
+    ];
+}
 
-$arquivo = '../data/users.json';
+function carregarUsuarios(string $arquivo): ?array {
+    if (!file_exists($arquivo)) return null;
+    return json_decode(file_get_contents($arquivo), true);
+}
 
-// -------------------------------------------------------
-// FUNÇÃO: Busca o usuário pelo e-mail e valida a senha
-// Retorna o usuário encontrado ou null
-// -------------------------------------------------------
 function autenticarUsuario(array $usuarios, string $email, string $senha): ?array {
     foreach ($usuarios as $u) {
         if ($u['email'] === $email && password_verify($senha, $u['senha'])) {
@@ -19,28 +22,33 @@ function autenticarUsuario(array $usuarios, string $email, string $senha): ?arra
     return null;
 }
 
-// -------------------------------------------------------
-// FUNÇÃO: Inicia a sessão do usuário logado
-// -------------------------------------------------------
 function iniciarSessao(array $usuario): void {
     $_SESSION['logado']  = true;
     $_SESSION['usuario'] = $usuario['email'];
 }
 
-// Verifica se o arquivo de usuários existe
-if (!file_exists($arquivo)) {
-    header("Location: ../login.php?erro=1");
+function redirecionar(string $destino): void {
+    header("Location: " . $destino);
     exit();
 }
 
-// Carrega os usuários e tenta autenticar
-$usuarios      = json_decode(file_get_contents($arquivo), true);
-$usuarioLogado = autenticarUsuario($usuarios, $usuario, $senha);
+function processarLogin(): void {
+    $dados    = obterDadosLogin();
+    $usuarios = carregarUsuarios('../data/users.json');
 
-if ($usuarioLogado) {
-    iniciarSessao($usuarioLogado);
-    header("Location: ../perfil.php");
-} else {
-    header("Location: ../login.php?erro=1");
+    if ($usuarios === null) {
+        redirecionar('/CODIGOSWELISON/Aumigos/login.php?erro=1');
+    }
+
+    $usuarioLogado = autenticarUsuario($usuarios, $dados['usuario'], $dados['senha']);
+
+    if ($usuarioLogado) {
+        iniciarSessao($usuarioLogado);
+        redirecionar('/CODIGOSWELISON/Aumigos/inicio.php');
+    } else {
+        redirecionar('/CODIGOSWELISON/Aumigos/login.php?erro=1');
+    }
 }
+
+processarLogin();
 ?>

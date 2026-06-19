@@ -1,26 +1,20 @@
-<?php 
+<?php
+  $paginaCSS = 'assets/css/login.css';
+  include_once 'includes/header.php';
+?>
 
-include_once 'includes/header.php' ?> 
-<link rel="stylesheet" href="assets/css/login.css">
- <h2>Entre em sua conta</h2>
-<main> 
-  
+<main>
+  <h2>Entre em sua conta</h2>
 
-  <form action="controllers/con_login.php" method="post"> 
-    <input type="text" name="usuario" placeholder="usuario">
-     <input type="password" name="senha" id="" placeholder="senha"> 
-     <input type="submit" value="Entrar">
-    
-  </form> </main> 
-
-
-
-
-
-
-<?php if (isset($_GET['erro'])): ?>
+  <?php if (isset($_GET['erro'])): ?>
     <p style="color:red; text-align:center;">Email ou senha incorretos!</p>
-<?php endif; ?>
+  <?php endif; ?>
 
+  <form action="controllers/con_login.php" method="POST">
+    <input type="text" name="usuario" placeholder="Usuário">
+    <input type="password" name="senha" placeholder="Senha">
+    <input type="submit" value="Entrar">
+  </form>
+</main>
 
-<?php include_once 'includes/footer.php' ?>
+<?php include_once 'includes/footer.php'; ?>
