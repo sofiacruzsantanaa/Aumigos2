@@ -49,6 +49,9 @@ $caesCurtidos = array_filter($caes, function ($c) use ($curtidos) {
 
 include_once 'includes/header.php';
 
+// Force-load favoritos stylesheet (absolute path for MAMP)
+echo '<link rel="stylesheet" href="/CODIGOSWELISON/Aumigos/assets/css/favoritos.css">';
+
 ?>
 
 <main>
