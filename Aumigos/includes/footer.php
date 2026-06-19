@@ -1,6 +1,5 @@
 <footer class="footer">
   <div class="footer-container">
-    <link rel="stylesheet" href="assets/css/footer.css">
 
     <div class="footer-box footer-brand">
       <img src="assets/img/Logo.jpeg" alt="Logo AUmas Gêmeas">
@@ -18,13 +17,16 @@
 
     <div class="footer-box">
       <h3>Links</h3>
-      <p><a href="#">Início</a></p>
-      <p><a href="#">Política de Privacidade</a></p>
+      <p><a href="inicio.php">Início</a></p>
+      <p><a href="catalogo.php">AUmigos</a></p>
     </div>
 
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; <?= date('Y'); ?> AUmas Gêmeas. Todos os direitos reservados.</p>
+    <p>&copy; <?php echo date('Y'); ?> AUmas Gêmeas. Todos os direitos reservados.</p>
   </div>
 </footer>
+
+</body>
+</html>
