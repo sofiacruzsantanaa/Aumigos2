@@ -1,12 +1,10 @@
-<?php include_once 'includes/header.php'; ?>
-<link rel="stylesheet" href="assets/css/requisitos.css">
-<main>
 <?php
+$paginaCSS = 'assets/css/requisitos.css';
+
 if (!isset($_SESSION['logado'])) {
     header("Location: login.php");
     exit();
 }
-
 
 $id          = intval($_POST['id'] ?? 0);
 $motivo      = $_POST['motivo'] ?? '';
@@ -30,8 +28,11 @@ if (!$cao || !$cao['disponivel']) {
     header("Location: catalogo.php?erro=indisponivel");
     exit();
 }
+
+include_once 'includes/header.php';
 ?>
 
+<main>
 <div class="req-wrap">
 
   <div class="req-header">
@@ -50,8 +51,6 @@ if (!$cao || !$cao['disponivel']) {
   <?php endif; ?>
 
   <form action="controllers/con_adotar.php" method="POST" enctype="multipart/form-data">
-
-
     <input type="hidden" name="id"             value="<?php echo $id; ?>">
     <input type="hidden" name="motivo"         value="<?php echo htmlspecialchars($motivo); ?>">
     <input type="hidden" name="pessoas"        value="<?php echo htmlspecialchars($pessoas); ?>">
@@ -59,86 +58,58 @@ if (!$cao || !$cao['disponivel']) {
     <input type="hidden" name="quintal"        value="<?php echo htmlspecialchars($quintal); ?>">
     <input type="hidden" name="experiencia"    value="<?php echo htmlspecialchars($experiencia); ?>">
 
-   
     <div class="req-bloco">
-      <div class="req-bloco-titulo">
-        <span class="req-num">1</span>
-        Documentação
-      </div>
-      <p class="req-bloco-desc">Envie os documentos necessários para realizar a adoção. Todos os arquivos devem estar legíveis.</p>
-
+      <div class="req-bloco-titulo"><span class="req-num">1</span> Documentação</div>
+      <p class="req-bloco-desc">Envie os documentos necessários para realizar a adoção.</p>
       <div class="campo-doc">
         <label>RG (frente e verso)</label>
         <input type="file" name="doc_rg" accept="image/*,.pdf" required>
       </div>
-
       <div class="campo-doc">
         <label>CPF</label>
         <input type="file" name="doc_cpf" accept="image/*,.pdf" required>
       </div>
-
       <div class="campo-doc">
         <label>Comprovante de residência (atualizado)</label>
         <input type="file" name="doc_residencia" accept="image/*,.pdf" required>
       </div>
     </div>
 
-    
     <div class="req-bloco">
-      <div class="req-bloco-titulo">
-        <span class="req-num">2</span>
-        Concordância familiar
-      </div>
-      <p class="req-bloco-desc">Todos os moradores da sua casa devem estar cientes e de acordo com a adoção.</p>
-
+      <div class="req-bloco-titulo"><span class="req-num">2</span> Concordância familiar</div>
+      <p class="req-bloco-desc">Todos os moradores devem estar de acordo com a adoção.</p>
       <label class="check-label">
         <input type="checkbox" name="concordancia" required>
         <span>Confirmo que todos que moram comigo estão de acordo com a chegada de <?php echo htmlspecialchars($cao['nome']); ?>.</span>
       </label>
     </div>
 
-
     <div class="req-bloco">
-      <div class="req-bloco-titulo">
-        <span class="req-num">3</span>
-        Posse responsável
-      </div>
-      <p class="req-bloco-desc">Ter um cachorro envolve custos mensais com alimentação, veterinário, vacinas e emergências.</p>
-
+      <div class="req-bloco-titulo"><span class="req-num">3</span> Posse responsável</div>
+      <p class="req-bloco-desc">Ter um cachorro envolve custos mensais com alimentação, veterinário e vacinas.</p>
       <label class="check-label">
         <input type="checkbox" name="financeiro" required>
-        <span>Declaro que tenho condições financeiras de arcar com os cuidados necessários para o bem-estar do animal.</span>
+        <span>Declaro que tenho condições financeiras de arcar com os cuidados necessários.</span>
       </label>
     </div>
 
- 
     <div class="req-bloco">
-      <div class="req-bloco-titulo">
-        <span class="req-num">4</span>
-        Taxa de adoção
-      </div>
-      <p class="req-bloco-desc">A taxa cobre custos operacionais como vacinas, vermifugação e cuidados pré-adoção. <strong>Não é a compra do animal.</strong></p>
-
+      <div class="req-bloco-titulo"><span class="req-num">4</span> Taxa de adoção</div>
+      <p class="req-bloco-desc">A taxa cobre custos operacionais como vacinas e cuidados pré-adoção.</p>
       <div class="taxa-box">
         <div class="taxa-valor">R$ 30,00</div>
         <div class="taxa-desc">Taxa única de adoção</div>
       </div>
-
       <label class="check-label">
         <input type="checkbox" name="taxa" required>
         <span>Estou ciente da taxa de adoção no valor de R$ 150,00 e concordo com o pagamento.</span>
       </label>
     </div>
 
- 
     <div class="req-bloco">
-      <div class="req-bloco-titulo">
-        <span class="req-num">5</span>
-        Termo de responsabilidade
-      </div>
-
+      <div class="req-bloco-titulo"><span class="req-num">5</span> Termo de responsabilidade</div>
       <div class="termo-texto">
-        <p>Eu, abaixo identificado, declaro que estou adotando o animal <strong><?php echo htmlspecialchars($cao['nome']); ?></strong> de forma consciente e responsável, comprometendo-me a:</p>
+        <p>Eu declaro que estou adotando <strong><?php echo htmlspecialchars($cao['nome']); ?></strong> de forma consciente e responsável, comprometendo-me a:</p>
         <ul>
           <li>Garantir alimentação adequada, água limpa e abrigo seguro;</li>
           <li>Manter as vacinas e consultas veterinárias em dia;</li>
@@ -146,9 +117,7 @@ if (!$cao || !$cao['disponivel']) {
           <li>Comunicar a plataforma em caso de impossibilidade de continuar com a tutoria;</li>
           <li>Zelar pelo bem-estar físico e emocional do animal.</li>
         </ul>
-        <p style="margin-top:10px;">O descumprimento deste termo pode acarretar em penalidades previstas na Lei de Crimes Ambientais (Lei nº 9.605/98) e na Lei do Bem-Estar Animal (Lei nº 14.064/20).</p>
       </div>
-
       <label class="check-label">
         <input type="checkbox" name="termo" required>
         <span>Li e aceito o termo de responsabilidade acima.</span>
@@ -159,7 +128,6 @@ if (!$cao || !$cao['disponivel']) {
       <button type="submit" class="btn-confirmar">Finalizar adoção</button>
       <a href="adotar.php?id=<?php echo $id; ?>" class="btn-voltar">Voltar</a>
     </div>
-
   </form>
 </div>
 </main>
